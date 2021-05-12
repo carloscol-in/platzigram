@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{# This block contains extra tags for 'head' tag. #}
+{% block head_content %}
+    <title>@{{ user.username }} | Platzigram</title>
+{% endblock %}
+
+{# Now set the content inside the container block. #}
+{% block container %}
+
+    <div class="container mb-5" style="margin-top: 8em;">
+        <div class="row">
+
+            <div class="col-sm-4 d-flex justify-content-center">
+                <img 
+                    src="{{ user.profile.picture.url }}"
+                    alt="@{{ user.username }}"
+                    class="rounded-circle"
+                    width="150px"
+                    height="150px"
+                >
+            </div>
+            <div class="col-sm-8">
+                <h2 style="font-weight: 100;">
+                    {{ user.username }}
+                    {% if request.user == user %}
+                        <a 
+                            href="{% url 'users:update' %}"
+                            class="ml-5 btn btn-sm btn-outline-info"
+                        >
+                            Edit Profile
+                        </a>
+                    {% else %}
+                        <a 
+                            href="{% url 'users:update' %}"
+                            class="ml-5 btn btn-sm btn-outline-info"
+                        >
+                            Follow
+                        </a>
+                    {% endif %}
+                </h2>
+
+                <div class="row mt-2" style="font-size: 1.2em">
+                    <div class="col-sm-4">
+                        <b>{{ user.profile.posts_count }}785</b> posts
+                    </div>
+                    <div class="col-sm-4">
+                        <b>{{ user.profile.followers }}1,401</b> followers
+                    </div>
+                    <div class="col-sm-4">
+                        <b>{{ user.profile.following }}491</b> followed
+                    </div>
+                </div>
+
+                <div class="row mt-4" style="font-size: 1.2em">
+                    <p>{{ user.profile.biography }}</p>
+                </div>
+            </div>
+        </div>
+
+        <br><hr>
+
+        {# posts list #}
+        <div class="container" id="user-posts">
+            <div class="row mt-3">
+                {% for post in posts %}
+                    <div class="col-sm-4 pt-5 pb-5 pr-5 pl-5 d-flex justify-content-center align-items-center">
+                        <a href="{% url 'posts:detail' post.pk %}" class="border" height="200px">
+                            <img src="{{ post.photo.url }}" alt="{{ post.title }}" class="img-fluid">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "users/base.html" %}
+
+{% block head_content %}
+    <title>Platzigram | Login</title>
+{% endblock %}
+
+{% block container %}
+
+    {% if form.errors %}
+        <p class="alert alert-danger">
+            Username or password information wasn't correct. Try again.
+        </p>
+    {% endif %}
+
+    <form action="{% url 'users:login' %}" method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <input type="text" name="username" id="" class="form-control mb-2" placeholder="Username" autofocus/>
+            <input type="password" name="password" id="" class="form-control" placeholder="Password" />
+        </div>
+        
+        <button class="btn btn-primary btn-block mt-5" type="submit">Sign In</button>
+    </form>
+
+    <p class="mt-4 text-center">Don't have an account yet? <a href="{% url 'users:signup' %}">Sign Up!</a></p>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block head_content %}
+    <title>{{post.title}} | Platzigram</title>
+{% endblock %}
+
+{% block container %}
+
+    {# posts/post-card.html contains a card that could be used on the 
+        posts feed and the single post page. #}
+    {% include "posts/post-card.html" %}
+
+{% endblock %}
